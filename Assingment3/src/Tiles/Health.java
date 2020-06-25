@@ -9,9 +9,29 @@ public class Health {
         this.currentHealth = currentHealth;
     }
 
-    public void hpOnLevelUp(int level){
-        this.hp+=(10*level);
-        this.currentHealth=this.hp;
+    public void hpOnLevelUp(int level) {
+        this.hp += (10 * level);
+        this.currentHealth = this.hp;
+    }
+
+    public void setCurrentHealth(int currentHealth){
+        this.currentHealth=currentHealth;
+        if(currentHealth>hp)
+            currentHealth=hp;
+    }
+
+    public void RaiseHp(int hp) {
+        this.hp +=hp;
+    }
+
+    public void RaiseCurrHealth(int amount) {
+        this.currentHealth+=amount;
+        if(currentHealth>hp)
+            currentHealth=hp;
+    }
+
+    public int getHp() {
+        return hp;
     }
 
     @Override

@@ -1,4 +1,3 @@
-
 package Players;
 
 import Tiles.Position;
@@ -24,11 +23,14 @@ public abstract class Player extends Unit {
             this.exp = exp;
     }
 
-    private void PlayerlevelUp(){
+    protected void PlayerlevelUp(){
         this.exp-=(50*this.level);
         this.level++;
         this.Health.hpOnLevelUp(level);
         this.attackPoints+=(4*level);
         this.defenePoints+=level;
     }
+
+    public abstract void OnGameTick();
+    public abstract void OnAbilityCast();
 }
