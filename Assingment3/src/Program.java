@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Program {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         try {
             List<String> levelFiles=Files.list(Paths.get(args[0])).sorted().map(Path::toString).collect(Collectors.toList());
             for(String levelPath: levelFiles) {

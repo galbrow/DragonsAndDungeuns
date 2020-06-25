@@ -1,3 +1,5 @@
+package Enemies;
+
 public abstract class Enemy {
     private int exp;
 
