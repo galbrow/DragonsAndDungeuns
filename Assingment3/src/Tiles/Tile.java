@@ -28,4 +28,9 @@ public class Tile {
     public double Range(Position a, Position b) {
         return Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2));
     }
+
+    @Override
+    public String toString() {
+        return ""+this.character;
+    }
 }

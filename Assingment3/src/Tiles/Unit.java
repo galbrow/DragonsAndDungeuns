@@ -1,6 +1,6 @@
 package Tiles;
 
-public class Unit extends Tile {
+public abstract class Unit extends Tile {
     protected String Name;
     protected Health Health;
     protected int attackPoints;
@@ -18,24 +18,12 @@ public class Unit extends Tile {
         return Name;
     }
 
-    public void setName(String name) {
-        Name = name;
-    }
-
     public int getAttackPoints() {
         return attackPoints;
     }
 
-    public void setAttackPoints(int attackPoints) {
-        this.attackPoints = attackPoints;
-    }
-
     public int getDefenePoints() {
         return defenePoints;
-    }
-
-    public void setDefenePoints(int defenePoints) {
-        this.defenePoints = defenePoints;
     }
 
     public Health getHealth() {
@@ -45,4 +33,5 @@ public class Unit extends Tile {
     public void setHealth(Health health) {
         Health = health;
     }
+    public abstract String describe();
 }

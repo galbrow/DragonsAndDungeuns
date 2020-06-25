@@ -7,8 +7,8 @@ import Tiles.Unit;
 public abstract class Player extends Unit {
     private final int ExpStarts = 0;
     private final int  LevelStarts=1;
-    private int exp;
-    private int level;
+    protected int exp;
+    protected int level;
 
     public Player(Position pos, String name, Tiles.Health hp, int attackPoints, int defenePoints) {
         super('@', pos, name, hp, attackPoints, defenePoints);

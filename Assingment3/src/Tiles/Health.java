@@ -9,24 +9,13 @@ public class Health {
         this.currentHealth = currentHealth;
     }
 
-    public void setCurrentHealth(int currentHealth) {
-        this.currentHealth = currentHealth;
-    }
-
-    public int getCurrentHealth() {
-        return currentHealth;
-    }
-
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
-
-    public int getHp() {
-        return hp;
-    }
-
     public void hpOnLevelUp(int level){
         this.hp+=(10*level);
         this.currentHealth=this.hp;
+    }
+
+    @Override
+    public String toString() {
+        return ""+currentHealth+"\\"+hp;
     }
 }
