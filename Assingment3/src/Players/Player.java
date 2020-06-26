@@ -40,8 +40,7 @@ public abstract class Player extends Unit{
         this.attackPoints+=(4*level);
         this.defenePoints+=level;
     }
-
-    public abstract void UponLevelingUp();
     public abstract void OnGameTick();
+    public abstract void UponLevelingUp();
     public abstract String OnAbilityCast();
 }

@@ -15,6 +15,30 @@ public class Monster extends Enemy {
 
     @Override
     public String describe() {
-        return null;
+        return Name;
+        //todo check if need to describe only name
+    }
+
+    @Override
+    public void OnEnemyTurn(Position player) {
+        if(Range(player,this.pos)<visionRange){
+            int dx=pos.getX()-player.getX();
+            int dy=pos.getY()-player.getY();
+            if(Math.abs(dx)>Math.abs(dy)){
+                if(dx>0)
+                    pos.setX(pos.getX()-1);
+                else
+                    pos.setY(pos.getX()-1);
+            }
+            else{
+                if(dy>0)
+                    pos.setY(pos.getY()-1);
+                else
+                    pos.setY(pos.getY()+1);
+            }
+        }
+        else {
+            //todo random movement action
+        }
     }
 }

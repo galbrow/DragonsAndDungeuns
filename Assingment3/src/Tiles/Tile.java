@@ -4,7 +4,7 @@ import Helpers.*;
 
 import java.util.Random;
 
-public abstract class Tile {
+public class Tile {
     protected char character;
     protected Position pos;
 

@@ -14,8 +14,5 @@ public abstract class Enemy extends Unit {
     public int getExp() {
         return exp;
     }
-
-    public void setExp(int exp) {
-        this.exp = exp;
-    }
+    public abstract void OnEnemyTurn(Position pos);
 }

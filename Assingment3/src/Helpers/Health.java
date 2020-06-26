@@ -28,6 +28,13 @@ public class Health {
         return hp;
     }
 
+    public boolean ReduceCurrHealth(int amount){
+        this.currentHealth-=amount;
+        if(currentHealth<=0)
+            return true;
+        return false;
+    }
+
     @Override
     public String toString() {
         return ""+currentHealth+"\\"+hp;

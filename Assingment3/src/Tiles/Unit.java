@@ -5,7 +5,7 @@ import Helpers.Position;
 
 import java.util.List;
 
-public abstract class Unit extends Tile {
+public class Unit extends Tile {
     protected String Name;
     protected Helpers.Health Health;
     protected int attackPoints;
@@ -40,5 +40,8 @@ public abstract class Unit extends Tile {
     public void setHealth(Health health) {
         Health = health;
     }
-    public abstract String describe();
+    public String describe(){
+        return "";
+    }
+
 }

@@ -44,13 +44,19 @@ public class Mage extends Player {
             this.currentMana-=manaCost;
             int hits=0;
             while (hits<hitsCount && AllUnitsInRange.size()>0){
+                Unit chosen=chooseRandom.SelectRandomUnitInRange(AllUnitsInRange);
+                if(chosen.getHealth().ReduceCurrHealth(_abilityDamage))
+                    AllUnitsInRange.remove(chosen);
+                }
+                hits++;
             }
-        }
+        //todo
+        //how each enemy may try to defense itself
+        //add to message
         return message;
     }
-
     @Override
     public String describe() {
-        return null;
+        return Name+"\t Health: "+Health+"\t Attack: "+attackPoints+ "\t Defense: "+defenePoints+"\t Experience: "+exp+"\\"+(50*level)+"\t Mana: "+ currentMana +"\\"+ mp+"\t Spell Power: "+_abilityDamage;
     }
 }
