@@ -1,4 +1,4 @@
-package Tiles;
+package Helpers;
 
 public class Health {
     private int hp;
@@ -12,12 +12,6 @@ public class Health {
     public void hpOnLevelUp(int level) {
         this.hp += (10 * level);
         this.currentHealth = this.hp;
-    }
-
-    public void setCurrentHealth(int currentHealth){
-        this.currentHealth=currentHealth;
-        if(currentHealth>hp)
-            currentHealth=hp;
     }
 
     public void RaiseHp(int hp) {

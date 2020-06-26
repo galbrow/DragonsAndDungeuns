@@ -1,4 +1,4 @@
-package Tiles;
+package Helpers;
 
 public class Position {
     private int x;
