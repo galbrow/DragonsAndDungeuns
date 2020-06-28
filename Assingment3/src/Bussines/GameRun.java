@@ -1,19 +1,20 @@
 package Bussines;
 
 import Bussines.Enemies.Enemy;
-import Bussines.Helpers.Health;
-import Bussines.Helpers.Position;
+import Bussines.*;
 import Bussines.Players.Mage;
 import Bussines.Players.Player;
 import Bussines.Players.Rogue;
 import Bussines.Players.Warrior;
+import Bussines.Tiles.Tile;
+import Bussines.Tiles.Unit;
 import GameView.MessageHandler;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.Parser;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class GameRun {
     Scanner scan=new Scanner(System.in);
@@ -22,19 +23,59 @@ public class GameRun {
     private List<Player> AllPlayers;
     private Board board;
     private Player player;
-    private ArrayList<Enemy> AllEnemies;
+    private List<Enemy> AllEnemies;
+    private List<String> currentLevel;
 
     public GameRun(MessageHandler m,Levels level) {
         this.m = m;
         this.levels=level;
-        List<String> currentLevel=level.NextLevel();
+        currentLevel=level.NextLevel();
         setAllPlayerType();
         board=new Board(currentLevel,m,player);
         this.AllEnemies=board.getAllUnits();
     }
     public void run(){
-        m.sendMessage(board.toString());
-        char a= scan.next().charAt(0);
+        while(player.isAlive()&&AllEnemies.size()!=0){
+            m.sendMessage(board.toString());
+            //List<Enemy> AllEnemiesInRange=AllEnemies.stream().filter((x)->(x.Range(player.getPos())<player.get_abilityRange())).collect(Collectors.toList());
+            List<Enemy> AllEnemiesInRange=new ArrayList<>();
+            for (Enemy enemy:AllEnemies) {
+               if(enemy.Range(player.getPos())<player.get_abilityRange())
+                   AllEnemiesInRange.add(enemy);
+            }
+            player.setAllEnemiesInRange(AllEnemiesInRange);
+            m.sendMessage(player.describe());
+            char a= scan.next().charAt(0);
+            player.OnGameTick();
+            movement(player,a);
+            for (Enemy enemy:AllEnemiesInRange) {
+                if(!enemy.isAlive()) {
+                    board.makeEmpty(enemy.getPos().getX(), enemy.getPos().getY());
+                    AllEnemies.remove(enemy);
+                }
+            }
+            for (Enemy enemy:AllEnemies) {
+                char enemyMove=enemy.OnEnemyTurn(player.getPos());
+                movement(enemy,enemyMove);
+            }
+        }
+        if(!player.isAlive()){
+            player.setCharacter('X');
+            m.sendMessage(board.toString());
+            m.sendMessage("GAME OVER");
+        }
+        else{
+            currentLevel=levels.NextLevel();
+            if (currentLevel != null) {
+                board = new Board(currentLevel, m, player);
+                this.AllEnemies = board.getAllUnits();
+                m.sendMessage("");
+                run();
+            }else {
+                m.sendMessage(board.toString());
+                m.sendMessage("You Won!");
+            }
+        }
     }
 
     public void setAllPlayerType(){
@@ -58,5 +99,24 @@ public class GameRun {
         player=AllPlayers.get(choice-1);
         m.sendMessage("You have selected:");
         m.sendMessage(player.getName());
+    }
+    public boolean movement(Unit a, char move){
+        int x=a.getPos().getX();
+        int y=a.getPos().getY();
+        if(move=='w')
+            if(a.movmentOn(board.getTile(x,y-1)))
+                board.Replace(x,x,y,y-1);
+        if(move=='s')
+            if(a.movmentOn(board.getTile(x,y+1)))
+                board.Replace(x,x,y,y+1);
+        if(move=='a')
+            if(a.movmentOn(board.getTile(x-1,y)))
+                board.Replace(x,x-1,y,y);
+        if(move=='d')
+            if(a.movmentOn(board.getTile(x+1,y)))
+                board.Replace(x,x+1,y,y);
+        if(move=='e')
+            player.OnAbilityCast();
+        return false;
     }
 }

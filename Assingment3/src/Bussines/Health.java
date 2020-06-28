@@ -1,4 +1,4 @@
-package Bussines.Helpers;
+package Bussines;
 
 public class Health {
     private int hp;
@@ -7,6 +7,10 @@ public class Health {
     public Health(int hp) {
         this.hp = hp;
         this.currentHealth = hp;
+    }
+
+    public boolean isAlive(){
+        return currentHealth>0;
     }
 
     public void hpOnLevelUp(int level) {

@@ -15,6 +15,7 @@ public class Levels {
             return true;
         return false;
     }
+    //returns null when game end
     public List<String> NextLevel(){
         if(!GameEnd())
             return Levels.get(NextLevel++);

@@ -1,8 +1,7 @@
 package Bussines.Tiles;
 
 import Bussines.Enemies.Enemy;
-import Bussines.Helpers.*;
-import Bussines.Helpers.Position;
+import Bussines.Position;
 import Bussines.Players.Player;
 import GameView.CmdPrinter;
 import GameView.MessageHandler;
@@ -10,7 +9,7 @@ import GameView.MessageHandler;
 public abstract class Tile {
     protected char character;
     protected Position pos;
-    protected static MessageHandler m=new CmdPrinter();
+    protected static MessageHandler cmd=new CmdPrinter();
 
     public Tile(char character, Position pos) {
         this.character = character;
@@ -33,17 +32,14 @@ public abstract class Tile {
         this.pos = pos;
     }
 
-    public double Range(Position a, Position b) {
-        return Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2));
+    public int Range(Position b) {
+        int range=(int)Math.sqrt(Math.pow((double)this.pos.getX() - (double)b.getX(), 2) + Math.pow((double) this.pos.getY() - (double)b.getY(), 2));
+        return range;
     }
 
-
-    public void movmentOn(Wall wall){}
-    public abstract void movmentOn(Player unit);
-    public void movmentOn(Empty empty){}
-    public abstract void movmentOn(Enemy unit);
-
-
+    public abstract boolean movmentOn(Player unit);
+    public abstract boolean movmentOn(Enemy unit);
+    public abstract boolean movmentOn(Tile tile);
 
     @Override
     public String toString() {

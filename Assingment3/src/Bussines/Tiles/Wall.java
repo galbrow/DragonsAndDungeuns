@@ -1,7 +1,7 @@
 package Bussines.Tiles;
 
 import Bussines.Enemies.Enemy;
-import Bussines.Helpers.Position;
+import Bussines.Position;
 import Bussines.Players.Player;
 
 public class Wall extends Tile {
@@ -10,12 +10,17 @@ public class Wall extends Tile {
     }
 
     @Override
-    public void movmentOn(Enemy unit) {
-
+    public boolean movmentOn(Enemy unit) {
+        return false;
     }
 
     @Override
-    public void movmentOn(Player unit) {
+    public boolean movmentOn(Player unit) {
+        return false;
+    }
 
+    @Override
+    public boolean movmentOn(Tile tile) {
+        return false;
     }
 }

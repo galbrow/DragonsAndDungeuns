@@ -1,6 +1,7 @@
 package Bussines.Players;
 import Bussines.Enemies.Enemy;
-import Bussines.Helpers.Position;
+import Bussines.*;
+import Bussines.Tiles.Tile;
 import Bussines.Tiles.Unit;
 import com.sun.org.apache.xalan.internal.xsltc.runtime.MessageHandler;
 
@@ -14,9 +15,9 @@ public abstract class Player extends Unit {
     protected String _abilityName;
     protected int _abilityRange;
     protected int _abilityDamage;
-    protected List<Unit> AllUnitsInRange;
+    protected List<Enemy> AllEnemiesInRange;
     protected MessageHandler m;
-    public Player(Position pos, String name, Bussines.Helpers.Health hp, int attackPoints, int defenePoints) {
+    public Player(Position pos, String name, Health hp, int attackPoints, int defenePoints) {
         super('@',pos, name, hp, attackPoints, defenePoints);
         this.exp=ExpStarts;
         this.level=LevelStarts;
@@ -24,32 +25,44 @@ public abstract class Player extends Unit {
         //todo message handler
     }
 
-    public void setExp(int exp) {
-        if(exp==(50*level)){
-            PlayerlevelUp();
+    public void RaiseExp(int exp) {
+        this.exp+=exp;
+        if(this.exp>=(50*level)){
+            cmd.sendMessage(this.Name+" reached level "+(level+1));
+            UponLevelingUp();
         }
-        else
-            this.exp = exp;
     }
 
-    protected void PlayerlevelUp(){
+    public abstract void OnGameTick();
+
+    public void UponLevelingUp(){
         this.exp-=(50*this.level);
         this.level++;
         this.Health.hpOnLevelUp(level);
         this.attackPoints+=(4*level);
         this.defenePoints+=level;
     }
-    public abstract void OnGameTick();
-    public abstract void UponLevelingUp();
+
     public abstract String OnAbilityCast();
 
     @Override
-    public void movmentOn(Enemy unit) {
-        super.movmentOn(unit);
-        if(Combat(unit)){
-            Position position=this.pos;
-            this.pos=position;
-            unit.setPos(position);
+    public boolean movmentOn(Enemy unit) {
+        if(unit.Combat(this)){
+            this.character='X';
         }
+        return false;
+    }
+
+    public int get_abilityRange() {
+        return _abilityRange;
+    }
+
+    public void setAllEnemiesInRange(List<Enemy> allEnemiesInRange) {
+        AllEnemiesInRange = allEnemiesInRange;
+    }
+
+    @Override
+    public boolean movmentOn(Tile tile) {
+        return tile.movmentOn(this);
     }
 }

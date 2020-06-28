@@ -1,14 +1,13 @@
 package Bussines.Players;
 
-import Bussines.Helpers.*;
 import Bussines.Tiles.Unit;
-import Bussines.Helpers.Position;
+import Bussines.Position;
 
 public class Rogue extends Player {
     private final int MaximumEnergy=100;
     private int _cost;
     private int _currentEnergy;
-    public Rogue(Position pos, String name, Bussines.Helpers.Health hp, int attackPoints, int defenePoints, int cost) {
+    public Rogue(Position pos, String name, Bussines.Health hp, int attackPoints, int defenePoints, int cost) {
         super(pos, name, hp, attackPoints, defenePoints);
         this._abilityName="Fan of Knives";
         this._abilityRange=2;
@@ -19,6 +18,7 @@ public class Rogue extends Player {
 
     @Override
     public void UponLevelingUp() {
+        super.UponLevelingUp();
         _currentEnergy=MaximumEnergy;
         attackPoints+=(3*level);
         this._abilityDamage=attackPoints;
@@ -36,9 +36,8 @@ public class Rogue extends Player {
             message="cannot use "+_abilityName+" since the current energy is lower than the cost";
         else {
             _currentEnergy-=_cost;
-            //todo combat in all units in range
-            for (Unit a:AllUnitsInRange) {
-                
+            for (Unit a: AllEnemiesInRange) {
+                Combat(a);
             }
         }
         return message;

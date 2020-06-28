@@ -1,43 +1,52 @@
 package Bussines.Enemies;
-
 import Bussines.Enemies.Enemy;
-import Bussines.Helpers.Position;
+import Bussines.*;
 
 public class Monster extends Enemy {
     private int visionRange;
 
-    public Monster(char character, Position pos, String name, Bussines.Helpers.Health hp, int attackPoints, int defenePoints, int visionRange, int exp) {
+    public Monster(char character, Position pos, String name, Health hp, int attackPoints, int defenePoints, int visionRange, int exp) {
         super(character, pos, name, hp, attackPoints, defenePoints,exp);
         this.visionRange = visionRange;
     }
 
     @Override
     public String describe() {
-        return Name;
+        return Name+" health: "+this.Health.toString();
         //todo check if need to describe only name
     }
 
     @Override
-    public void OnEnemyTurn(Position player) {
-        if(Range(player,this.pos)<visionRange){
+    public char OnEnemyTurn(Position player) {
+        if(Range(player)<visionRange){
             int dx=pos.getX()-player.getX();
             int dy=pos.getY()-player.getY();
             if(Math.abs(dx)>Math.abs(dy)){
-                //todo change all pos setters to movments letters.
                 if(dx>0)
-                    pos.setX(pos.getX()-1);
+                    return 'a';
                 else
-                    pos.setY(pos.getX()-1);
+                    return 'd';
             }
             else{
                 if(dy>0)
-                    pos.setY(pos.getY()-1);
+                    return 'w';
                 else
-                    pos.setY(pos.getY()+1);
+                    return 's';
             }
         }
         else {
-            //todo random movement action
+            int a=chooseRandomNumber.SelectRandomNumberInRange(3);
+            switch (a){
+                case 0:
+                    return 'a';
+                case 1:
+                    return 'd';
+                case 2:
+                    return 's';
+                case 3:
+                    return 'w';
+            }
+            return 'q';
         }
     }
 }

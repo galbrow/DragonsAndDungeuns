@@ -1,6 +1,6 @@
 package Bussines.Players;
 
-import Bussines.Helpers.Position;
+import Bussines.*;
 import Bussines.Tiles.Unit;
 
 public class Mage extends Player {
@@ -8,7 +8,7 @@ public class Mage extends Player {
     private int currentMana;
     private int manaCost;
     private int hitsCount;
-    public Mage(Position pos, String name, Bussines.Helpers.Health hp, int attackPoints, int defenePoints, int range, int spellPower, int mp, int hitsCounts, int manaCost) {
+    public Mage(Position pos, String name, Health hp, int attackPoints, int defenePoints, int range, int spellPower, int mp, int hitsCounts, int manaCost) {
         super(pos, name, hp, attackPoints, defenePoints);
         this._abilityName="Blizzard";
         this._abilityRange=range;
@@ -21,7 +21,7 @@ public class Mage extends Player {
 
     @Override
     public void UponLevelingUp() {
-        PlayerlevelUp();
+        super.UponLevelingUp();
         this.mp+=(25*level);
         this.currentMana=Math.min(currentMana+mp/4,mp);
         this._abilityDamage+=(10*level);
@@ -40,11 +40,11 @@ public class Mage extends Player {
         else{
             this.currentMana-=manaCost;
             int hits=0;
-            while (hits<hitsCount && AllUnitsInRange.size()>0){
-                int num=chooseRandomNumber.SelectRandomNumberInRange(AllUnitsInRange.size()-1);
-                Unit chosen=AllUnitsInRange.get(num);
+            while (hits<hitsCount && AllEnemiesInRange.size()>0){
+                int num=chooseRandomNumber.SelectRandomNumberInRange(AllEnemiesInRange.size()-1);
+                Unit chosen= AllEnemiesInRange.get(num);
                 if(chosen.getHealth().ReduceCurrHealth(_abilityDamage))
-                    AllUnitsInRange.remove(chosen);
+                    AllEnemiesInRange.remove(chosen);
                 }
                 hits++;
             }

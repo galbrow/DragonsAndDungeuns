@@ -2,8 +2,6 @@ package Bussines;
 
 import Bussines.Enemies.Monster;
 import Bussines.Enemies.Trap;
-import Bussines.Helpers.Health;
-import Bussines.Helpers.Position;
 import Bussines.Players.Mage;
 import Bussines.Players.Player;
 import Bussines.Players.Rogue;
@@ -23,7 +21,7 @@ public class Board {
         this.Board=new Tile[board.size()][board.get(0).length()];
         for(int i=0;i<Board.length;i++)
             for(int j=0;j<Board[0].length;j++){
-                Board[i][j]=getTileByChar(board.get(i).charAt(j),new Position(i,j),player);
+                Board[i][j]=getTileByChar(board.get(i).charAt(j),new Position(j,i),player);
             }
     }
 
@@ -99,5 +97,18 @@ public class Board {
 
     public ArrayList getAllUnits() {
         return allUnits;
+    }
+
+    public Tile getTile(int x,int y){
+        return Board[y][x];
+    }
+    public void Replace(int x1,int x2,int y1,int y2){
+        Tile a=Board[y1][x1];
+        Board[y1][x1]=Board[y2][x2];
+        Board[y2][x2]=a;
+    }
+    public void makeEmpty(int x,int y){
+        Empty a=new Empty(new Position(x,y));
+        Board[y][x]=a;
     }
 }

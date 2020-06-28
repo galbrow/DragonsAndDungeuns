@@ -1,16 +1,14 @@
 package Bussines.Tiles;
 
 import Bussines.Enemies.Enemy;
-import Bussines.Helpers.Health;
-import Bussines.Helpers.Position;
-import Bussines.Helpers.SelectRandomNumber;
+import Bussines.*;
 import Bussines.Players.Player;
 
 import java.util.Random;
 
 public class Unit extends Tile {
     protected String Name;
-    protected Bussines.Helpers.Health Health;
+    protected Health Health;
     protected int attackPoints;
     protected int defenePoints;
     protected SelectRandomNumber chooseRandomNumber=(int limit)->{
@@ -27,11 +25,23 @@ public class Unit extends Tile {
     }
     //returns true if this unit b defeated
     public boolean Combat(Unit b){
+        cmd.sendMessage(this.getName()+" engaged in combat with "+b.getName()+".");
+        cmd.sendMessage(describe());
+        cmd.sendMessage(b.describe());
+        System.out.println(this.getName()+"attack"+b.getName());
         int attDamage=this.chooseRandomNumber.SelectRandomNumberInRange(attackPoints);
         int defense=b.chooseRandomNumber.SelectRandomNumberInRange(b.defenePoints);
         int result=attDamage-defense;
-        if(result>0)
+        cmd.sendMessage(this.Name+" rolled "+attDamage+" attack points.");
+        cmd.sendMessage(b.getName()+" rolled "+defense+" defense points.");
+        if(result>=0){
+            cmd.sendMessage(this.Name+" dealt "+result+" to"+b.getName()+".");
             return b.getHealth().ReduceCurrHealth(result);
+        }
+        return false;
+    }
+
+    public boolean movmentOn(Tile tile) {
         return false;
     }
 
@@ -39,13 +49,6 @@ public class Unit extends Tile {
         return Name;
     }
 
-    public int getAttackPoints() {
-        return attackPoints;
-    }
-
-    public int getDefenePoints() {
-        return defenePoints;
-    }
 
     public Health getHealth() {
         return Health;
@@ -59,17 +62,22 @@ public class Unit extends Tile {
     }
 
     @Override
-    public void movmentOn(Player unit) {
-
+    public boolean movmentOn(Player unit) {
+        return true;
     }
 
     @Override
-    public void movmentOn(Enemy unit) {
-
+    public boolean movmentOn(Enemy unit) {
+        return false;
     }
 
     @Override
     public String toString() {
         return ""+character;
     }
+
+    public boolean isAlive(){
+        return Health.isAlive();
+    }
 }
+

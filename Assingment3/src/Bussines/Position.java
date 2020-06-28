@@ -1,4 +1,7 @@
-package Bussines.Helpers;
+package Bussines;
+
+import java.util.Objects;
+
 public class Position {
     private int x;
     private int y;
@@ -26,5 +29,11 @@ public class Position {
 
     public boolean AreSame(int x,int y) {
         return(this.x==x&&this.y==y);
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }

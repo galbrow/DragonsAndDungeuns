@@ -1,14 +1,13 @@
 package Bussines.Enemies;
-
-import Bussines.Enemies.Enemy;
-import Bussines.Helpers.Position;
+import Bussines.*;
+import Bussines.Position;
 
 public class Trap extends Enemy {
     private int _visibilitiTime;
     private int _invisibilityTime;
     private int _ticksCount;
     private boolean _visible;
-    public Trap(char character, Position pos, String name, Bussines.Helpers.Health hp, int attackPoints, int defenePoints, int visibletime, int invisibletime, int exp) {
+    public Trap(char character, Position pos, String name, Bussines.Health hp, int attackPoints, int defenePoints, int visibletime, int invisibletime, int exp) {
         super(character, pos, name, hp, attackPoints, defenePoints, exp);
         this._visibilitiTime=visibletime;
         this._invisibilityTime=invisibletime;
@@ -23,15 +22,16 @@ public class Trap extends Enemy {
     }
 
     @Override
-    public void OnEnemyTurn(Position pos) {
+    public char OnEnemyTurn(Position pos) {
         _visible=(_ticksCount<_visibilitiTime);
         if(_ticksCount==(_visibilitiTime+_invisibilityTime))
             _ticksCount=0;
         else
             _ticksCount++;
-        if(Range(this.pos,pos)<2) {
+        if(Range(pos)<2) {
             //todo attack player
         }
+        return 'q';
     }
 
     @Override
