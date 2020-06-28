@@ -5,6 +5,7 @@ import Bussines.Tiles.Tile;
 import Bussines.Tiles.Unit;
 import com.sun.org.apache.xalan.internal.xsltc.runtime.MessageHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Player extends Unit {
@@ -22,7 +23,6 @@ public abstract class Player extends Unit {
         this.exp=ExpStarts;
         this.level=LevelStarts;
         this.pos=pos;
-        //todo message handler
     }
 
     public void RaiseExp(int exp) {
@@ -43,7 +43,7 @@ public abstract class Player extends Unit {
         this.defenePoints+=level;
     }
 
-    public abstract String OnAbilityCast();
+    public abstract void OnAbilityCast();
 
     @Override
     public boolean movmentOn(Enemy unit) {
@@ -57,8 +57,13 @@ public abstract class Player extends Unit {
         return _abilityRange;
     }
 
-    public void setAllEnemiesInRange(List<Enemy> allEnemiesInRange) {
-        AllEnemiesInRange = allEnemiesInRange;
+    public void setAllEnemiesInRange(List<Enemy> allEnemies) {
+        List<Enemy> AllEnemiesInRange2=new ArrayList<>();
+        for (Enemy enemy:allEnemies) {
+            if(enemy.Range(this.pos)<this._abilityRange)
+                AllEnemiesInRange2.add(enemy);
+        }
+        AllEnemiesInRange = AllEnemiesInRange2;
     }
 
     @Override

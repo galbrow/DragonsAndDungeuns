@@ -34,8 +34,10 @@ public class Health {
 
     public boolean ReduceCurrHealth(int amount){
         this.currentHealth-=amount;
-        if(currentHealth<=0)
+        if(currentHealth<=0) {
+            currentHealth=0;
             return true;
+        }
         return false;
     }
 

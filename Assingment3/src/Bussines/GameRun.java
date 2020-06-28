@@ -2,19 +2,12 @@ package Bussines;
 
 import Bussines.Enemies.Enemy;
 import Bussines.*;
-import Bussines.Players.Mage;
-import Bussines.Players.Player;
-import Bussines.Players.Rogue;
-import Bussines.Players.Warrior;
-import Bussines.Tiles.Tile;
+import Bussines.Players.*;
 import Bussines.Tiles.Unit;
 import GameView.MessageHandler;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.Parser;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 public class GameRun {
     Scanner scan=new Scanner(System.in);
@@ -38,20 +31,17 @@ public class GameRun {
         while(player.isAlive()&&AllEnemies.size()!=0){
             m.sendMessage(board.toString());
             //List<Enemy> AllEnemiesInRange=AllEnemies.stream().filter((x)->(x.Range(player.getPos())<player.get_abilityRange())).collect(Collectors.toList());
-            List<Enemy> AllEnemiesInRange=new ArrayList<>();
-            for (Enemy enemy:AllEnemies) {
-               if(enemy.Range(player.getPos())<player.get_abilityRange())
-                   AllEnemiesInRange.add(enemy);
-            }
-            player.setAllEnemiesInRange(AllEnemiesInRange);
+            player.setAllEnemiesInRange(AllEnemies);
             m.sendMessage(player.describe());
             char a= scan.next().charAt(0);
-            player.OnGameTick();
             movement(player,a);
-            for (Enemy enemy:AllEnemiesInRange) {
+            player.OnGameTick();
+            for (int i=0;i<AllEnemies.size();i++) {
+                Enemy enemy=AllEnemies.get(i);
                 if(!enemy.isAlive()) {
                     board.makeEmpty(enemy.getPos().getX(), enemy.getPos().getY());
-                    AllEnemies.remove(enemy);
+                    AllEnemies.remove(i);
+                    i--;
                 }
             }
             for (Enemy enemy:AllEnemies) {
@@ -87,6 +77,7 @@ public class GameRun {
         AllPlayers.add(3,new Mage(pos,"Thoros of Myr",new Health(250),25,4,4,20,150,4,20));
         AllPlayers.add(4,new Rogue(pos,"Arya Stark",new Health(150),40,2,20));
         AllPlayers.add(5,new Rogue(pos,"Bronn",new Health(250),40,3,50));
+        AllPlayers.add(6,new Hunter(pos,"Ygritte",new Health(220), 30, 2, 6));
         m.sendMessage("Select player:");
         int i=1;
         for (Player player:AllPlayers) {

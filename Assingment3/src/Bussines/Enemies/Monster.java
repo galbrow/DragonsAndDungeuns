@@ -13,7 +13,6 @@ public class Monster extends Enemy {
     @Override
     public String describe() {
         return Name+" health: "+this.Health.toString();
-        //todo check if need to describe only name
     }
 
     @Override

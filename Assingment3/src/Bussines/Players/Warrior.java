@@ -1,5 +1,7 @@
 package Bussines.Players;
 import Bussines.*;
+import Bussines.Enemies.Enemy;
+import Bussines.Tiles.Unit;
 
 public class Warrior extends Player {
     private int _totalCooldown;
@@ -33,18 +35,23 @@ public class Warrior extends Player {
     }
 
     @Override
-    public String OnAbilityCast() {
-        String message="";
+    public void OnAbilityCast() {
+        cmd.sendMessage(this.Name+" Cast "+this._abilityName);
         if(_remainingCooldown >0){
             cmd.sendMessage("cannot use"+_abilityName+", "+ _remainingCooldown +" game tick remaining for cooldown");
         }
         else {
             _remainingCooldown=_totalCooldown;
             this.Health.RaiseCurrHealth(_heal);
-            //todo
-            //how the hit works
+            int num=chooseRandomNumber.SelectRandomNumberInRange(AllEnemiesInRange.size()-1);
+            Enemy chosen= AllEnemiesInRange.get(num);
+            int amount= (int) (this.Health.getHp()*0.1);
+            if(chosen.getHealth().ReduceCurrHealth(amount)){
+                AllEnemiesInRange.remove(chosen);
+                cmd.sendMessage(chosen.getName()+" died. "+ this.Name+" gained "+chosen.getExp()+" experience");
+                RaiseExp(chosen.getExp());
+            }
         }
-        return message;
     }
 
     @Override

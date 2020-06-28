@@ -1,6 +1,7 @@
 package Bussines.Players;
 
 import Bussines.*;
+import Bussines.Enemies.Enemy;
 import Bussines.Tiles.Unit;
 
 public class Mage extends Player {
@@ -33,25 +34,28 @@ public class Mage extends Player {
     }
 
     @Override
-    public String OnAbilityCast() {
+    public void OnAbilityCast() {
+        cmd.sendMessage(this.Name+" Cast "+this._abilityName);
         String message="";
         if(currentMana<manaCost)
-            message="cannot use "+_abilityName+" since the current mana is lower than the cost";
+            cmd.sendMessage("cannot use "+_abilityName+" since the current mana is lower than the cost");
         else{
             this.currentMana-=manaCost;
             int hits=0;
             while (hits<hitsCount && AllEnemiesInRange.size()>0){
-                int num=chooseRandomNumber.SelectRandomNumberInRange(AllEnemiesInRange.size()-1);
-                Unit chosen= AllEnemiesInRange.get(num);
-                if(chosen.getHealth().ReduceCurrHealth(_abilityDamage))
+                int num=0;
+                if(AllEnemiesInRange.size()>1)
+                    num=chooseRandomNumber.SelectRandomNumberInRange(AllEnemiesInRange.size());
+                Enemy chosen= AllEnemiesInRange.get(num);
+                int defense=this.chooseRandomNumber.SelectRandomNumberInRange(chosen.getDefenePoints());
+                if(chosen.getHealth().ReduceCurrHealth(_abilityDamage-defense)) {
                     AllEnemiesInRange.remove(chosen);
+                    cmd.sendMessage(chosen.getName()+" died. "+ this.Name+" gained "+chosen.getExp()+" experience");
+                    RaiseExp(chosen.getExp());
                 }
                 hits++;
             }
-        //todo
-        //how each enemy may try to defense itself
-        //add to message
-        return message;
+        }
     }
     @Override
     public String describe() {

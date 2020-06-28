@@ -28,7 +28,7 @@ public class Unit extends Tile {
         cmd.sendMessage(this.getName()+" engaged in combat with "+b.getName()+".");
         cmd.sendMessage(describe());
         cmd.sendMessage(b.describe());
-        System.out.println(this.getName()+"attack"+b.getName());
+        cmd.sendMessage(this.getName()+"attack"+b.getName());
         int attDamage=this.chooseRandomNumber.SelectRandomNumberInRange(attackPoints);
         int defense=b.chooseRandomNumber.SelectRandomNumberInRange(b.defenePoints);
         int result=attDamage-defense;
@@ -78,6 +78,10 @@ public class Unit extends Tile {
 
     public boolean isAlive(){
         return Health.isAlive();
+    }
+
+    public int getDefenePoints() {
+        return defenePoints;
     }
 }
 

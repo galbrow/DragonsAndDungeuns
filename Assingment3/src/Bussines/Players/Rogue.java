@@ -1,5 +1,6 @@
 package Bussines.Players;
 
+import Bussines.Enemies.Enemy;
 import Bussines.Tiles.Unit;
 import Bussines.Position;
 
@@ -30,17 +31,23 @@ public class Rogue extends Player {
     }
 
     @Override
-    public String OnAbilityCast() {
-        String message="";
+    public void OnAbilityCast() {
+        cmd.sendMessage(this.Name+" Cast "+this._abilityName);
         if(_currentEnergy<_cost)
-            message="cannot use "+_abilityName+" since the current energy is lower than the cost";
+            cmd.sendMessage("cannot use "+_abilityName+" since the current energy is lower than the cost");
         else {
             _currentEnergy-=_cost;
-            for (Unit a: AllEnemiesInRange) {
-                Combat(a);
+            for (Enemy a: AllEnemiesInRange) {
+                int defense=this.chooseRandomNumber.SelectRandomNumberInRange(a.getDefenePoints());
+                int result=attackPoints-defense;
+                if(result>=0){
+                    if(a.getHealth().ReduceCurrHealth(result)){
+                        cmd.sendMessage(a.getName()+" died. "+ this.Name+" gained "+a.getExp()+" experience");
+                        RaiseExp(a.getExp());
+                    }
+                }
             }
         }
-        return message;
     }
 
     @Override
