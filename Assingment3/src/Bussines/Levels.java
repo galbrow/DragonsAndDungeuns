@@ -10,15 +10,22 @@ public class Levels {
         this.Levels=Levels;
         NextLevel=0;
     }
+    //checks if the game ended
     public boolean GameEnd(){
         if(Levels.size()<=NextLevel)
             return true;
         return false;
     }
-    //returns null when game end
-    public List<String> NextLevel(){
-        if(!GameEnd())
-            return Levels.get(NextLevel++);
-        return null;
+
+    //gets the next level string
+    public List<String> NextLevel(int size) {
+        if (size == 0) {
+            if (!GameEnd())
+                return Levels.get(NextLevel++);
+            else {
+                throw new NullPointerException("You won!");
+            }
+        }
+        return Levels.get(NextLevel);
     }
 }

@@ -9,11 +9,12 @@ import GameView.MessageHandler;
 public abstract class Tile {
     protected char character;
     protected Position pos;
-    protected static MessageHandler cmd=new CmdPrinter();
+    protected MessageHandler cmd;
 
-    public Tile(char character, Position pos) {
+    public Tile(char character, Position pos,MessageHandler m) {
         this.character = character;
         this.pos = pos;
+        this.cmd=m;
     }
 
     public char getCharacter() {

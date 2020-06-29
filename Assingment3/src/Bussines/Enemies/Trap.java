@@ -1,14 +1,15 @@
 package Bussines.Enemies;
-import Bussines.*;
+import Bussines.Players.Player;
 import Bussines.Position;
+import GameView.MessageHandler;
 
 public class Trap extends Enemy {
     private int _visibilitiTime;
     private int _invisibilityTime;
     private int _ticksCount;
     private boolean _visible;
-    public Trap(char character, Position pos, String name, Bussines.Health hp, int attackPoints, int defenePoints, int visibletime, int invisibletime, int exp) {
-        super(character, pos, name, hp, attackPoints, defenePoints, exp);
+    public Trap(char character, Position pos, String name, Bussines.Health hp, int attackPoints, int defenePoints, int visibletime, int invisibletime, int exp, MessageHandler cmd) {
+        super(character, pos, name, hp, attackPoints, defenePoints, exp,cmd);
         this._visibilitiTime=visibletime;
         this._invisibilityTime=invisibletime;
         this._visible=true;
@@ -16,20 +17,14 @@ public class Trap extends Enemy {
     }
 
     @Override
-    public String describe() {
-        return Name;
-        //todo check if need to describe only name
-    }
-
-    @Override
-    public char OnEnemyTurn(Position pos) {
+    public char OnEnemyTurn(Player player) {
         _visible=(_ticksCount<_visibilitiTime);
         if(_ticksCount==(_visibilitiTime+_invisibilityTime))
             _ticksCount=0;
         else
             _ticksCount++;
-        if(Range(pos)<2) {
-            //todo attack player
+        if(Range(player.getPos())<2) {
+            Combat(player);
         }
         return 'q';
     }

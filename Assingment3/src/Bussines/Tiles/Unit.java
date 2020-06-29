@@ -3,6 +3,7 @@ package Bussines.Tiles;
 import Bussines.Enemies.Enemy;
 import Bussines.*;
 import Bussines.Players.Player;
+import GameView.MessageHandler;
 
 import java.util.Random;
 
@@ -16,8 +17,8 @@ public class Unit extends Tile {
         return rand.nextInt(limit);
     };
 
-    public Unit(char character, Position pos, String name, Health hp, int attackPoints, int defenePoints) {
-        super(character, pos);
+    public Unit(char character, Position pos, String name, Health hp, int attackPoints, int defenePoints, MessageHandler m) {
+        super(character, pos,m);
         Name = name;
         this.Health = hp;
         this.attackPoints = attackPoints;

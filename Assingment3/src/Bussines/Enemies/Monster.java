@@ -1,25 +1,22 @@
 package Bussines.Enemies;
-import Bussines.Enemies.Enemy;
 import Bussines.*;
+import Bussines.Players.Player;
+import GameView.MessageHandler;
 
 public class Monster extends Enemy {
     private int visionRange;
 
-    public Monster(char character, Position pos, String name, Health hp, int attackPoints, int defenePoints, int visionRange, int exp) {
-        super(character, pos, name, hp, attackPoints, defenePoints,exp);
+    public Monster(char character, Position pos, String name, Health hp, int attackPoints, int defenePoints, int visionRange, int exp, MessageHandler cmd) {
+        super(character, pos, name, hp, attackPoints, defenePoints,exp,cmd);
         this.visionRange = visionRange;
     }
 
+    //do enemy activity of each round
     @Override
-    public String describe() {
-        return Name+" health: "+this.Health.toString();
-    }
-
-    @Override
-    public char OnEnemyTurn(Position player) {
-        if(Range(player)<visionRange){
-            int dx=pos.getX()-player.getX();
-            int dy=pos.getY()-player.getY();
+    public char OnEnemyTurn(Player player) {
+        if(Range(player.getPos())<visionRange){
+            int dx=pos.getX()-player.getPos().getX();
+            int dy=pos.getY()-player.getPos().getY();
             if(Math.abs(dx)>Math.abs(dy)){
                 if(dx>0)
                     return 'a';
@@ -34,7 +31,7 @@ public class Monster extends Enemy {
             }
         }
         else {
-            int a=chooseRandomNumber.SelectRandomNumberInRange(3);
+            int a=chooseRandomNumber.SelectRandomNumberInRange(4);
             switch (a){
                 case 0:
                     return 'a';

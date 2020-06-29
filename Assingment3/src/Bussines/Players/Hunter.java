@@ -3,6 +3,7 @@ package Bussines.Players;
 import Bussines.Enemies.Enemy;
 import Bussines.Health;
 import Bussines.Position;
+import GameView.MessageHandler;
 
 import java.util.List;
 
@@ -10,8 +11,8 @@ public class Hunter extends Player {
     private Enemy closestEnemy;
     private int arrows;
     private int tickCounts;
-    public Hunter(Position pos, String name, Bussines.Health hp, int attackPoints, int defenePoints,int range) {
-        super(pos, name, hp, attackPoints, defenePoints);
+    public Hunter(Position pos, String name, Bussines.Health hp, int attackPoints, int defenePoints, int range, MessageHandler m) {
+        super(pos, name, hp, attackPoints, defenePoints,m);
         this._abilityName="Shoot";
         this._abilityDamage=attackPoints;
         this.arrows=10;
@@ -19,6 +20,7 @@ public class Hunter extends Player {
         this.tickCounts=0;
     }
 
+    //updates each round
     @Override
     public void OnGameTick() {
         if(tickCounts==10){
@@ -29,6 +31,7 @@ public class Hunter extends Player {
         }
     }
 
+    //cast hunter special ability
     @Override
     public void OnAbilityCast() {
         cmd.sendMessage(this.Name+" Cast "+this._abilityName);
@@ -49,6 +52,7 @@ public class Hunter extends Player {
         }
     }
 
+    //set the hunter closest enemy
     @Override
     public void setAllEnemiesInRange(List<Enemy> allEnemiesInRange) {
         super.setAllEnemiesInRange(allEnemiesInRange);
@@ -73,6 +77,6 @@ public class Hunter extends Player {
 
     @Override
     public String describe() {
-        return Name+"\t Health: "+Health+"\t Attack: "+attackPoints+ "\t Defense: "+defenePoints+"\t Experience: "+exp+"\\"+(50*level)+"\t Arrows: "+ arrows +"\t Range: "+_abilityRange;
+        return Name+"\t Health: "+Health+"\t Attack: "+attackPoints+ "\t Defense: "+defenePoints+"\t Experience: "+exp+"\\"+(50*level)+"\t Arrows: "+ arrows +"\t Range: "+_abilityRange+"\t Level: "+this.level;
     }
 }

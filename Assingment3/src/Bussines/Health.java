@@ -13,6 +13,7 @@ public class Health {
         return currentHealth>0;
     }
 
+    //when player reach level hp increase
     public void hpOnLevelUp(int level) {
         this.hp += (10 * level);
         this.currentHealth = this.hp;
@@ -22,6 +23,7 @@ public class Health {
         this.hp +=hp;
     }
 
+    //raise the current health of player
     public void RaiseCurrHealth(int amount) {
         this.currentHealth+=amount;
         if(currentHealth>hp)
@@ -32,6 +34,7 @@ public class Health {
         return hp;
     }
 
+    //reduce the current health of user
     public boolean ReduceCurrHealth(int amount){
         this.currentHealth-=amount;
         if(currentHealth<=0) {

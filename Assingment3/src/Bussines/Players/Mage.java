@@ -3,14 +3,15 @@ package Bussines.Players;
 import Bussines.*;
 import Bussines.Enemies.Enemy;
 import Bussines.Tiles.Unit;
+import GameView.MessageHandler;
 
 public class Mage extends Player {
     private int mp;
     private int currentMana;
     private int manaCost;
     private int hitsCount;
-    public Mage(Position pos, String name, Health hp, int attackPoints, int defenePoints, int range, int spellPower, int mp, int hitsCounts, int manaCost) {
-        super(pos, name, hp, attackPoints, defenePoints);
+    public Mage(Position pos, String name, Health hp, int attackPoints, int defenePoints, int range, int spellPower, int mp, int hitsCounts, int manaCost, MessageHandler m) {
+        super(pos, name, hp, attackPoints, defenePoints,m);
         this._abilityName="Blizzard";
         this._abilityRange=range;
         this._abilityDamage=spellPower;
@@ -20,6 +21,7 @@ public class Mage extends Player {
         this.manaCost=manaCost;
     }
 
+    //invoke each time the mage level up
     @Override
     public void UponLevelingUp() {
         super.UponLevelingUp();
@@ -28,11 +30,13 @@ public class Mage extends Player {
         this._abilityDamage+=(10*level);
     }
 
+    //updates each round
     @Override
     public void OnGameTick() {
         this.currentMana=Math.min(mp,currentMana+level);
     }
 
+    //cast mage special ability
     @Override
     public void OnAbilityCast() {
         cmd.sendMessage(this.Name+" Cast "+this._abilityName);
@@ -59,6 +63,6 @@ public class Mage extends Player {
     }
     @Override
     public String describe() {
-        return Name+"\t Health: "+Health+"\t Attack: "+attackPoints+ "\t Defense: "+defenePoints+"\t Experience: "+exp+"\\"+(50*level)+"\t Mana: "+ currentMana +"\\"+ mp+"\t Spell Power: "+_abilityDamage;
+        return Name+"\t Health: "+Health+"\t Attack: "+attackPoints+ "\t Defense: "+defenePoints+"\t Experience: "+exp+"\\"+(50*level)+"\t Mana: "+ currentMana +"\\"+ mp+"\t Spell Power: "+_abilityDamage+"\t Level: "+this.level;
     }
 }

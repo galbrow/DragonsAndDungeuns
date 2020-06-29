@@ -1,15 +1,17 @@
 package Bussines.Players;
 
 import Bussines.Enemies.Enemy;
+import Bussines.Health;
 import Bussines.Tiles.Unit;
 import Bussines.Position;
+import GameView.MessageHandler;
 
 public class Rogue extends Player {
     private final int MaximumEnergy=100;
     private int _cost;
     private int _currentEnergy;
-    public Rogue(Position pos, String name, Bussines.Health hp, int attackPoints, int defenePoints, int cost) {
-        super(pos, name, hp, attackPoints, defenePoints);
+    public Rogue(Position pos, String name, Bussines.Health hp, int attackPoints, int defenePoints, int cost, MessageHandler m) {
+        super(pos, name, hp, attackPoints, defenePoints,m);
         this._abilityName="Fan of Knives";
         this._abilityRange=2;
         this._abilityDamage=attackPoints;
@@ -17,6 +19,7 @@ public class Rogue extends Player {
         this._currentEnergy=MaximumEnergy;
     }
 
+    //invoke when player level up
     @Override
     public void UponLevelingUp() {
         super.UponLevelingUp();
@@ -25,11 +28,13 @@ public class Rogue extends Player {
         this._abilityDamage=attackPoints;
     }
 
+    //updates each round
     @Override
     public void OnGameTick() {
         _currentEnergy=Math.min(_currentEnergy+10,MaximumEnergy);
     }
 
+    //use rogue special ability
     @Override
     public void OnAbilityCast() {
         cmd.sendMessage(this.Name+" Cast "+this._abilityName);
@@ -52,6 +57,6 @@ public class Rogue extends Player {
 
     @Override
     public String describe() {
-        return Name+"\t Health: "+Health+"\t Attack: "+attackPoints+ "\t Defense: "+defenePoints+"\t Experience: "+exp+"\\"+(50*level)+"\t Energy: "+ _currentEnergy +"\\"+ MaximumEnergy +"\t Spell Power: "+_abilityDamage;
+        return Name+"\t Health: "+Health+"\t Attack: "+attackPoints+ "\t Defense: "+defenePoints+"\t Experience: "+exp+"\\"+(50*level)+"\t Energy: "+ _currentEnergy +"\\"+ MaximumEnergy +"\t Spell Power: "+_abilityDamage+"\t Level: "+this.level;
     }
 }

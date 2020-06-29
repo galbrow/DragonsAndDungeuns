@@ -3,8 +3,9 @@ import Bussines.Enemies.Enemy;
 import Bussines.*;
 import Bussines.Tiles.Tile;
 import Bussines.Tiles.Unit;
-import com.sun.org.apache.xalan.internal.xsltc.runtime.MessageHandler;
+import GameView.MessageHandler;
 
+import java.io.NotActiveException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +18,14 @@ public abstract class Player extends Unit {
     protected int _abilityRange;
     protected int _abilityDamage;
     protected List<Enemy> AllEnemiesInRange;
-    protected MessageHandler m;
-    public Player(Position pos, String name, Health hp, int attackPoints, int defenePoints) {
-        super('@',pos, name, hp, attackPoints, defenePoints);
+    public Player(Position pos, String name, Health hp, int attackPoints, int defenePoints, MessageHandler m) {
+        super('@',pos, name, hp, attackPoints, defenePoints,m);
         this.exp=ExpStarts;
         this.level=LevelStarts;
         this.pos=pos;
     }
 
+    //raise the current exp of player each time enemy die
     public void RaiseExp(int exp) {
         this.exp+=exp;
         if(this.exp>=(50*level)){
@@ -35,6 +36,7 @@ public abstract class Player extends Unit {
 
     public abstract void OnGameTick();
 
+    //invoke each time player level up
     public void UponLevelingUp(){
         this.exp-=(50*this.level);
         this.level++;
@@ -45,10 +47,12 @@ public abstract class Player extends Unit {
 
     public abstract void OnAbilityCast();
 
+    //function of visitor pattern. when a enemy try to combat with player
     @Override
     public boolean movmentOn(Enemy unit) {
         if(unit.Combat(this)){
             this.character='X';
+            throw new NullPointerException("GAME OVER");
         }
         return false;
     }
@@ -57,6 +61,7 @@ public abstract class Player extends Unit {
         return _abilityRange;
     }
 
+    //get all types of enemies in the board and return all the enemies in player range
     public void setAllEnemiesInRange(List<Enemy> allEnemies) {
         List<Enemy> AllEnemiesInRange2=new ArrayList<>();
         for (Enemy enemy:allEnemies) {

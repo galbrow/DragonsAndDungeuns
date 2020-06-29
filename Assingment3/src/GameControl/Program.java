@@ -9,11 +9,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public class Program {
-    public static void main(String[] args) {
+    public static void main(String[] args) {//read all levels
         Scanner scan=new Scanner(System.in);
         List<List<String>> levelList=new LinkedList<>();
         List<String> levelData=null;
@@ -27,12 +26,11 @@ public class Program {
             e.printStackTrace();
         }
 
-        if(levelList!=null){
+        if(levelList!=null){//in case there is levels to read
             Levels levels=new Levels(levelList);
             MessageHandler m=new CmdPrinter();
-            List<String> current =levelList.get(0);
             GameRun game=new GameRun(m,levels);
-            game.run();
+            game.run();//invoke game
         }
     }
 }

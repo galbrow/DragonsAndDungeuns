@@ -3,10 +3,11 @@ package Bussines.Tiles;
 import Bussines.Enemies.Enemy;
 import Bussines.Position;
 import Bussines.Players.Player;
+import GameView.MessageHandler;
 
 public class Wall extends Tile {
-    public Wall(Position pos) {
-        super('#', pos);
+    public Wall(Position pos,MessageHandler m) {
+        super('#', pos,m);
     }
 
     @Override

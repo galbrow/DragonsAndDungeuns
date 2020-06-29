@@ -2,14 +2,15 @@ package Bussines.Players;
 import Bussines.*;
 import Bussines.Enemies.Enemy;
 import Bussines.Tiles.Unit;
+import GameView.MessageHandler;
 
 public class Warrior extends Player {
     private int _totalCooldown;
     private int _remainingCooldown;
     private int _heal;
 
-    public Warrior(Position pos, String name, Health hp, int attackPoints, int defenePoints, int _totalCooldown) {
-        super(pos, name, hp, attackPoints, defenePoints);
+    public Warrior(Position pos, String name, Health hp, int attackPoints, int defenePoints, int _totalCooldown, MessageHandler m) {
+        super(pos, name, hp, attackPoints, defenePoints,m);
         this._totalCooldown = _totalCooldown;
         this._remainingCooldown = 0;
         this._abilityName="Avenger's Shield";
@@ -18,11 +19,13 @@ public class Warrior extends Player {
         this._abilityRange=3;
     }
 
+    //prints the warrior details
     @Override
     public String describe() {
-        return Name+"\t Health: "+Health+"\t Attack: "+attackPoints+ "\t Defense: "+defenePoints+"\t Experience: "+exp+"\\"+(50*level)+"\t Cooldown: "+ _remainingCooldown +"\\"+ _totalCooldown;
+        return Name+"\t Health: "+Health+"\t Attack: "+attackPoints+ "\t Defense: "+defenePoints+"\t Experience: "+exp+"\\"+(50*level)+"\t Cooldown: "+ _remainingCooldown +"\\"+ _totalCooldown+"\t Level: "+this.level;
     }
 
+    //invoke when player level up
     @Override
     public void UponLevelingUp() {
         super.UponLevelingUp();
@@ -34,6 +37,7 @@ public class Warrior extends Player {
         _heal=(10*defenePoints);
     }
 
+    //case warrior special ability
     @Override
     public void OnAbilityCast() {
         cmd.sendMessage(this.Name+" Cast "+this._abilityName);
@@ -54,6 +58,7 @@ public class Warrior extends Player {
         }
     }
 
+    //updates every round
     @Override
     public void OnGameTick() {
         if(_remainingCooldown>0)
