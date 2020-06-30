@@ -13,7 +13,6 @@ public class Monster extends Enemy {
     }
 
     //do enemy activity of each round
-    @Override
     public char OnEnemyTurn(Player player) {
         if(Range(player.getPos())<visionRange){
             int dx=pos.getX()-player.getPos().getX();

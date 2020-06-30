@@ -11,13 +11,13 @@ public class Boss extends Monster implements HeroeicUnit {
     private int abilityFrequency;
     private int combatTicks;
 
-    public Boss(char character, Position pos, String name, Bussines.Health hp, int attackPoints, int defenePoints, int visionRange, int exp, MessageHandler cmd, Player player, Board board,int abilityfrequency) {
+    public Boss(char character, Position pos, String name, Bussines.Health hp, int attackPoints, int defenePoints, int visionRange, int exp, MessageHandler cmd, Player player, Board board, int abilityFrequency) {
         super(character, pos, name, hp, attackPoints, defenePoints, visionRange, exp, cmd, player, board);
-        this.abilityFrequency=abilityfrequency;
+        this.abilityFrequency=abilityFrequency;
         this.combatTicks=0;
     }
 
-
+    @Override
     public char OnEnemyTurn(Player player) {
         if(Range(player.getPos())<visionRange){
             if(combatTicks==abilityFrequency) {
