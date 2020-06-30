@@ -54,8 +54,8 @@ public class Hunter extends Player {
 
     //set the hunter closest enemy
     @Override
-    public void setAllEnemiesInRange(List<Enemy> allEnemiesInRange) {
-        super.setAllEnemiesInRange(allEnemiesInRange);
+    public void setAllEnemiesInRange() {
+        super.setAllEnemiesInRange();
         if(this.AllEnemiesInRange.size()!=0){
             Enemy closest=AllEnemiesInRange.get(0);
             for (int i=0;i<AllEnemiesInRange.size();i++) {

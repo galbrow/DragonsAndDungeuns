@@ -24,4 +24,9 @@ public class Wall extends Tile {
     public boolean movmentOn(Tile tile) {
         return false;
     }
+
+    @Override
+    public boolean update(char x) {
+        return false;
+    }
 }

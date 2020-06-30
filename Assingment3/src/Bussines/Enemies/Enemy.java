@@ -5,13 +5,18 @@ import Bussines.Tiles.Tile;
 import Bussines.Tiles.Unit;
 import GameView.MessageHandler;
 
-public abstract class Enemy extends Unit {
+public abstract class Enemy extends Unit implements Observer {
     private int exp;
+    protected Board board;
+    protected Player player;
 
-    public Enemy(char character, Position pos, String name, Health hp, int attackPoints, int defenePoints, int exp, MessageHandler m) {
+    public Enemy(char character, Position pos, String name, Health hp, int attackPoints, int defenePoints, int exp, MessageHandler m,Player player) {
         super(character, pos, name, hp, attackPoints, defenePoints,m);
         this.exp=exp;
+        this.player=player;
     }
+
+    public void setPlayer(Player player) { this.player = player; }
 
     public int getExp() {
         return exp;
@@ -40,5 +45,17 @@ public abstract class Enemy extends Unit {
     @Override
     public boolean movmentOn(Tile tile) {
         return tile.movmentOn(this);
+    }
+
+    @Override
+    public boolean update(char x) {
+        if (!isAlive()) {
+            board.makeEmpty(pos.getX(), pos.getY());
+            return true;
+        } else {
+            char enemyMove = OnEnemyTurn(player);
+            board.movement(this, enemyMove);
+            return false;
+        }
     }
 }

@@ -36,20 +36,18 @@ public class Unit extends Tile {
         cmd.sendMessage(this.Name+" rolled "+attDamage+" attack points.");
         cmd.sendMessage(b.getName()+" rolled "+defense+" defense points.");
         if(result>=0){
-            cmd.sendMessage(this.Name+" dealt "+result+" to"+b.getName()+".");
+            cmd.sendMessage(this.Name+" dealt "+result+" to "+b.getName()+".");
             return b.getHealth().ReduceCurrHealth(result);
         }
         return false;
     }
 
-    public boolean movmentOn(Tile tile) {
-        return false;
-    }
+    @Override
+    public boolean movmentOn(Tile tile) { return false; }
 
     public String getName() {
         return Name;
     }
-
 
     public Health getHealth() {
         return Health;
@@ -63,14 +61,10 @@ public class Unit extends Tile {
     }
 
     @Override
-    public boolean movmentOn(Player unit) {
-        return true;
-    }
+    public boolean movmentOn(Player unit) { return true; }
 
     @Override
-    public boolean movmentOn(Enemy unit) {
-        return false;
-    }
+    public boolean movmentOn(Enemy unit) { return false; }
 
     @Override
     public String toString() {
@@ -83,6 +77,11 @@ public class Unit extends Tile {
 
     public int getDefenePoints() {
         return defenePoints;
+    }
+
+    @Override
+    public boolean update(char x) {
+        return false;
     }
 }
 

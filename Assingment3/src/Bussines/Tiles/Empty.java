@@ -19,6 +19,11 @@ public class Empty extends Tile {
     }
 
     @Override
+    public boolean update(char x) {
+        return false;
+    }
+
+    @Override
     public boolean movmentOn(Tile tile) {
         return false;
     }

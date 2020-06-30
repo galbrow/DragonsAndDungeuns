@@ -1,12 +1,12 @@
 package Bussines.Tiles;
-
+import Bussines.*;
 import Bussines.Enemies.Enemy;
 import Bussines.Position;
 import Bussines.Players.Player;
 import GameView.CmdPrinter;
 import GameView.MessageHandler;
 
-public abstract class Tile {
+public abstract class Tile implements Observer {
     protected char character;
     protected Position pos;
     protected MessageHandler cmd;
@@ -47,4 +47,6 @@ public abstract class Tile {
         return ""+this.character;
     }
 
+    @Override
+    public abstract boolean update(char x);
 }
