@@ -1,4 +1,5 @@
 package Bussines;
+import Bussines.Enemies.Boss;
 import Bussines.Enemies.Monster;
 import Bussines.Enemies.Trap;
 import Bussines.Players.*;
@@ -70,13 +71,13 @@ public class TilesDictionary {
                 t = new Monster(a, pos, "White Walker", new Health(2000), 150, 50, 6, 1000, cmd,player,board);
                 break;
             case 'M':
-                t = new Monster(a, pos, "The Mountain", new Health(1000), 60, 25, 6, 500, cmd,player,board);
+                t = new Boss(a, pos, "The Mountain", new Health(1000), 60, 25, 6, 500, cmd,player,board,4);
                 break;
             case 'C':
-                t = new Monster(a, pos, "Queen Cersei", new Health(100), 10, 10, 1, 1000, cmd,player,board);
+                t = new Boss(a, pos, "Queen Cersei", new Health(100), 10, 10, 1, 1000, cmd,player,board,4);
                 break;
             case 'K':
-                t = new Monster(a, pos, "Night’s King", new Health(5000), 300, 150, 8, 5000, cmd,player,board);
+                t = new Boss(a, pos, "Night’s King", new Health(5000), 300, 150, 8, 5000, cmd,player,board,4);
                 break;
             case 'B':
                 t = new Trap(a, pos, "Bonus Trap", new Health(1), 1, 1, 1, 5, 250, cmd,player,board);

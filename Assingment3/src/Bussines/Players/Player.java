@@ -9,7 +9,7 @@ import java.io.NotActiveException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Player extends Unit implements Observer {
+public abstract class Player extends Unit implements Observer,HeroeicUnit {
     private final int ExpStarts = 0;
     private final int  LevelStarts=1;
     protected int exp;

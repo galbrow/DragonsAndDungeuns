@@ -4,7 +4,7 @@ import Bussines.Players.Player;
 import GameView.MessageHandler;
 
 public class Monster extends Enemy {
-    private int visionRange;
+    protected int visionRange;
 
     public Monster(char character, Position pos, String name, Health hp, int attackPoints, int defenePoints, int visionRange, int exp, MessageHandler cmd, Player player, Board board) {
         super(character, pos, name, hp, attackPoints, defenePoints,exp,cmd,player);
