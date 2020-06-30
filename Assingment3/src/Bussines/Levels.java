@@ -28,4 +28,6 @@ public class Levels {
         }
         return Levels.get(NextLevel);
     }
+
+    public int getNextLevel() { return NextLevel; }
 }

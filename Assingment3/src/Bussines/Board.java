@@ -94,8 +94,12 @@ public class Board implements Observer {
     @Override
     public boolean update(char x) {//observer function
         if (AllEnemies.size() == 0) {//checks if player finished current map
-            if(x!='M')cmd.sendMessage("All Enemies Are Dead, Level finished");
+            if(x!='M') {
+                cmd.sendMessage(toString());
+                cmd.sendMessage("All Enemies Are Dead, Level finished");
+            }
             List<String> board = levels.NextLevel(AllEnemies.size());
+            cmd.sendMessage("\n Game Level "+levels.getNextLevel());
             this.Board = new Tile[board.size()][board.get(0).length()];
             for (int i = 0; i < Board.length; i++)
                 for (int j = 0; j < Board[0].length; j++) {
