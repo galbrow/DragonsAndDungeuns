@@ -3,7 +3,6 @@ package GameControl;
 import Bussines.*;
 import GameView.CmdPrinter;
 import GameView.MessageHandler;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,9 +26,9 @@ public class Program {
         }
 
         if(levelList!=null){//in case there is levels to read
-            Levels levels=new Levels(levelList);
             MessageHandler m=new CmdPrinter();
-            GameRun game=new GameRun(m,levels);
+            InputReader inputReader=new InputReader();
+            GameController game=new GameController(inputReader,m,levelList);
             game.run();//invoke game
         }
     }
