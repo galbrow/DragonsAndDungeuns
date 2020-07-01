@@ -1,5 +1,4 @@
 package GameControl;
-
 import Bussines.*;
 import GameView.CmdPrinter;
 import GameView.MessageHandler;
@@ -25,7 +24,7 @@ public class Program {
             e.printStackTrace();
         }
 
-        if(levelList!=null){//in case there is levels to read
+        if(levelList!=null && levelList.size()!=0){//in case there is levels to read
             MessageHandler m=new CmdPrinter();
             InputReader inputReader=new InputReader(m,levelList);
             GameController game=new GameController(inputReader,m,levelList);
