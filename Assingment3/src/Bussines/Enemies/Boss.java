@@ -24,6 +24,11 @@ public class Boss extends Monster implements HeroeicUnit {
                 combatTicks = 0;
                 cmd.sendMessage(this.Name+" Cast ability");
                 OnAbilityCast();
+                if(!player.isAlive()){
+                    player.setCharacter('X');
+                    cmd.sendMessage(board.toString());
+                    throw new NullPointerException("GAME OVER");
+                }
                 return 'q';
             }
             else {

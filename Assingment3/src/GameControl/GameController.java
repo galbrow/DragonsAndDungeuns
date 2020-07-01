@@ -16,11 +16,6 @@ public class GameController {
     public GameController(InputReader inputReader, MessageHandler cmd, List<List<String>> levels) {
         this.inputReader = inputReader;
         this.cmd = cmd;
-        TilesDictionary playerCreate=new TilesDictionary(cmd);
-        Player player=playerCreate.setPlayer();
-        Board board=new Board(cmd, player,new Levels(levels),inputReader,playerCreate);
-        inputReader.setPlayer(player);
-        inputReader.setBoard(board);
         run();
     }
     public void run(){
