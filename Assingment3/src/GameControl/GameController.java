@@ -18,7 +18,7 @@ public class GameController {
         this.cmd = cmd;
         run();
     }
-    public void run(){
+    private void run(){
         try {
             inputReader.getUserInput();//observable
         }

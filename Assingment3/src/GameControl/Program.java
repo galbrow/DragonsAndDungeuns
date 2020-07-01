@@ -29,7 +29,6 @@ public class Program {
             MessageHandler m=new CmdPrinter();
             InputReader inputReader=new InputReader(m,levelList);
             GameController game=new GameController(inputReader,m,levelList);
-            game.run();//invoke game
         }
     }
 }
