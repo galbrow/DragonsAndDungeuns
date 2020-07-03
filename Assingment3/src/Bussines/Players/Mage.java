@@ -28,6 +28,7 @@ public class Mage extends Player {
         this.mp+=(25*level);
         this.currentMana=Math.min(currentMana+mp/4,mp);
         this._abilityDamage+=(10*level);
+        this.Health.hpOnLevelUp(level);
     }
 
     //updates each round
@@ -64,5 +65,13 @@ public class Mage extends Player {
     @Override
     public String describe() {
         return Name+"\t Health: "+Health+"\t Attack: "+attackPoints+ "\t Defense: "+defenePoints+"\t Experience: "+exp+"\\"+(50*level)+"\t Mana: "+ currentMana +"\\"+ mp+"\t Spell Power: "+_abilityDamage+"\t Level: "+this.level;
+    }
+
+    public int getCurrentMana() {
+        return currentMana;
+    }
+
+    public int getMp() {
+        return mp;
     }
 }

@@ -35,6 +35,7 @@ public class Warrior extends Player {
         defenePoints+=level;
         _abilityDamage=((int)(0.1* Health.getHp()));
         _heal=(10*defenePoints);
+        this.Health.hpOnLevelUp(level);
     }
 
     //case warrior special ability
@@ -47,13 +48,15 @@ public class Warrior extends Player {
         else {
             _remainingCooldown=_totalCooldown;
             this.Health.RaiseCurrHealth(_heal);
-            int num=chooseRandomNumber.SelectRandomNumberInRange(AllEnemiesInRange.size()-1);
-            Enemy chosen= AllEnemiesInRange.get(num);
-            int amount= (int) (this.Health.getHp()*0.1);
-            if(chosen.getHealth().ReduceCurrHealth(amount)){
-                AllEnemiesInRange.remove(chosen);
-                cmd.sendMessage(chosen.getName()+" died. "+ this.Name+" gained "+chosen.getExp()+" experience");
-                RaiseExp(chosen.getExp());
+            if (AllEnemiesInRange.size()>0) {
+                int num = chooseRandomNumber.SelectRandomNumberInRange(AllEnemiesInRange.size());
+                Enemy chosen = AllEnemiesInRange.get(num);
+                int amount = (int) (this.Health.getHp() * 0.1);
+                if (chosen.getHealth().ReduceCurrHealth(amount)) {
+                    AllEnemiesInRange.remove(chosen);
+                    cmd.sendMessage(chosen.getName() + " died. " + this.Name + " gained " + chosen.getExp() + " experience");
+                    RaiseExp(chosen.getExp());
+                }
             }
         }
     }
@@ -62,7 +65,14 @@ public class Warrior extends Player {
     @Override
     public void OnGameTick() {
         if(_remainingCooldown>0)
-        _remainingCooldown--;
+            _remainingCooldown--;
     }
 
+    public int get_remainingCooldown() {
+        return _remainingCooldown;
+    }
+
+    public int get_totalCooldown() {
+        return _totalCooldown;
+    }
 }

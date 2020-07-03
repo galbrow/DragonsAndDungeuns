@@ -19,6 +19,10 @@ public class Health {
         this.currentHealth = this.hp;
     }
 
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
     public void RaiseHp(int hp) {
         this.hp +=hp;
     }

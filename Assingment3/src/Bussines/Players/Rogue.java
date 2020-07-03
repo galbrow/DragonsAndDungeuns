@@ -26,6 +26,7 @@ public class Rogue extends Player {
         _currentEnergy=MaximumEnergy;
         attackPoints+=(3*level);
         this._abilityDamage=attackPoints;
+        this.Health.hpOnLevelUp(level);
     }
 
     //updates each round
@@ -57,6 +58,6 @@ public class Rogue extends Player {
 
     @Override
     public String describe() {
-        return Name+"\t Health: "+Health+"\t Attack: "+attackPoints+ "\t Defense: "+defenePoints+"\t Experience: "+exp+"\\"+(50*level)+"\t Energy: "+ _currentEnergy +"\\"+ MaximumEnergy +"\t Spell Power: "+_abilityDamage+"\t Level: "+this.level;
+        return Name+"\t Health: "+Health+"\t Attack: "+attackPoints+ "\t Defense: "+defenePoints+"\t Experience: "+exp+"\\"+(50*level)+"\t Energy: "+ _currentEnergy +"\\"+ MaximumEnergy +"\t Level: "+this.level;
     }
 }

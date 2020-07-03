@@ -73,6 +73,7 @@ public class Hunter extends Player {
         this.arrows+=(10*level);
         this.attackPoints+=(2*level);
         this.defenePoints+=level;
+        this.Health.hpOnLevelUp(level);
     }
 
     @Override

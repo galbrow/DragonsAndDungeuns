@@ -26,6 +26,7 @@ public abstract class Player extends Unit implements Observer,HeroeicUnit {
         this.exp=ExpStarts;
         this.level=LevelStarts;
         this.pos=pos;
+        this.AllEnemiesInRange=new ArrayList();
     }
 
     public void setBoard(Board board) {
@@ -35,7 +36,7 @@ public abstract class Player extends Unit implements Observer,HeroeicUnit {
     //raise the current exp of player each time enemy die
     public void RaiseExp(int exp) {
         this.exp+=exp;
-        if(this.exp>=(50*level)){
+        while(this.exp>=(50*level)){
             cmd.sendMessage(this.Name+" reached level "+(level+1));
             UponLevelingUp();
         }
@@ -47,7 +48,6 @@ public abstract class Player extends Unit implements Observer,HeroeicUnit {
     public void UponLevelingUp(){
         this.exp-=(50*this.level);
         this.level++;
-        this.Health.hpOnLevelUp(level);
         this.attackPoints+=(4*level);
         this.defenePoints+=level;
     }

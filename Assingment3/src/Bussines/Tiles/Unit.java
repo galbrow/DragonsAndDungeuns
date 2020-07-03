@@ -83,5 +83,9 @@ public class Unit extends Tile {
     public boolean update(char x) {
         return false;
     }
+
+    public int getAttackPoints() {
+        return attackPoints;
+    }
 }
 
